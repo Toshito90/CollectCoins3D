@@ -68,24 +68,19 @@ namespace Content.Coins
 		}
 
 		/// <summary>
-		/// Verifies how many coins are left to be spawned, based on the value maxCoins and spawns a new coins
-		/// using a random coin prefab
+		/// Destroys all coins in the Scene and empty the list of the current coins spawned,
+		/// then it recreats all of them
 		/// </summary>
-		void RefreshCoins()
+		public void RestartAllCoins()
 		{
-			var totalCoins = coins.Count;
-			
-			for (int i = totalCoins; i < maxCoins; i++)
+			var foundCoins = FindObjectsOfType<Coin>();
+			foreach(var coin in foundCoins)
 			{
-				int coinsPropertyIndex = UnityEngine.Random.Range(0, coinPrefabs.Length - 1);
-
-				var coin = Instantiate(coinPrefabs[coinsPropertyIndex]);
-				coins.Add(coin);
-
-				int index = GetRandomMeshRendererIndex();
-				var position = GetRandomPosition(paths[index]);
-				coin.transform.position = new Vector3(position.x, position.y + liftYCoinPosition, position.z);
+				Destroy(coin.gameObject);
 			}
+
+			coins.Clear();
+			RefreshCoins();
 		}
 
 		/// <summary>
@@ -123,6 +118,27 @@ namespace Content.Coins
 			}
 
 			return false;
+		}
+
+		/// <summary>
+		/// Verifies how many coins are left to be spawned, based on the value maxCoins and spawns a new coins
+		/// using a random coin prefab
+		/// </summary>
+		void RefreshCoins()
+		{
+			var totalCoins = coins.Count;
+
+			for (int i = totalCoins; i < maxCoins; i++)
+			{
+				int coinsPropertyIndex = UnityEngine.Random.Range(0, coinPrefabs.Length - 1);
+
+				var coin = Instantiate(coinPrefabs[coinsPropertyIndex]);
+				coins.Add(coin);
+
+				int index = GetRandomMeshRendererIndex();
+				var position = GetRandomPosition(paths[index]);
+				coin.transform.position = new Vector3(position.x, position.y + liftYCoinPosition, position.z);
+			}
 		}
 
 		/// <summary>

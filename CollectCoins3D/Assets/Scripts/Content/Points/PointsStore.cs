@@ -27,6 +27,15 @@ namespace Content.Points
 		}
 
 		/// <summary>
+		/// Reset all player's points back to 0
+		/// </summary>
+		public void ResetPoints()
+		{
+			points = 0;
+			onPointsUpdated?.Invoke();
+		}
+
+		/// <summary>
 		/// Return the player's current points
 		/// </summary>
 		/// <returns></returns>

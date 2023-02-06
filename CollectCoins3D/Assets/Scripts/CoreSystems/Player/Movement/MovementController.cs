@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Bson;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,12 +35,22 @@ namespace CoreSystems.Player.Movement
 
 		Vector3 movementDirection;
 
+		Vector3 originalPosition;
+		Quaternion originalRotation;
+
 		Rigidbody rb;
 
+		/// <summary>
+		/// Get's the Rigidbody component reference and 
+		/// set's the original position and original rotation of the player
+		/// </summary>
 		private void Start()
 		{
 			rb = GetComponent<Rigidbody>();
 			rb.freezeRotation= true;
+
+			originalPosition = transform.localPosition;
+			originalRotation = transform.rotation;
 		}
 
 		/// <summary>
@@ -71,6 +82,43 @@ namespace CoreSystems.Player.Movement
 		private void FixedUpdate()
 		{
 			MovePlayer();
+		}
+
+		/// <summary>
+		/// Set the player's position to a desired position in the world
+		/// </summary>
+		/// <param name="position"></param>
+		public void SetPosition(Vector3 position)
+		{
+			transform.position = position;
+		}
+
+		/// <summary>
+		/// Set the player's rotation using the euler angles
+		/// </summary>
+		/// <param name="eulerRotation"></param>
+		public void SetRotation(Vector3 eulerRotation)
+		{
+			transform.eulerAngles = eulerRotation;
+		}
+
+		/// <summary>
+		/// Set the player's rotation
+		/// </summary>
+		/// <param name="rotation"></param>
+		public void SetRotation(Quaternion rotation)
+		{
+			transform.rotation = rotation;
+		}
+
+		/// <summary>
+		/// Resets the player's position back to their 
+		/// original position when the game started and their rotation
+		/// </summary>
+		public void ResetPlayerPositionAndRotation()
+		{
+			transform.localPosition = originalPosition;
+			transform.localRotation = originalRotation;
 		}
 
 		/// <summary>

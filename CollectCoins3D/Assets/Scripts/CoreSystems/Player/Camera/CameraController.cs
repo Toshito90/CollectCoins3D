@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace CoreSystems.Player.Camera
 {
@@ -23,15 +24,6 @@ namespace CoreSystems.Player.Camera
 		float yRotation;
 
 		/// <summary>
-		/// Lock the cursor and make it invisible
-		/// </summary>
-		private void Start()
-		{
-			Cursor.lockState = CursorLockMode.Locked;
-			Cursor.visible = false;
-		}
-
-		/// <summary>
 		/// Handles the camera's rotation by input and it's orientation
 		/// </summary>
 		private void Update()
@@ -44,7 +36,7 @@ namespace CoreSystems.Player.Camera
 
 			xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-			// rotate cam and orientation
+			// ### Rotate cam and orientation
 			transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
 			orientation.rotation = Quaternion.Euler(0, yRotation, 0);
 		}
