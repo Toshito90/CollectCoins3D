@@ -1,3 +1,4 @@
+using CoreSystems.Audio;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,12 +27,20 @@ namespace Content.Coins
 		// ### The paths to spawn coins, in the scene it is some planes
 		[SerializeField] MeshRenderer[] paths;
 
+		// ### BGM -> BackGround Music
+		[SerializeField] AudioClip audioBGM;
+
+		// ### Reference to play music and sounds
+		[SerializeField] AudioStore audioStore;
+
 		// ### The current list of spawn coins
 		List<Coin> coins = new List<Coin>();
 
 		private void Start()
 		{
 			RefreshCoins();
+
+			audioStore.Play(audioBGM);
 		}
 
 		/// <summary>

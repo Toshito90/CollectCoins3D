@@ -1,4 +1,5 @@
 using Content.Points;
+using CoreSystems.Audio;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,11 +20,16 @@ namespace Content.Coins
 		// ### The coin ID so it will be easier to identify this object
 		[SerializeField] string coinID = string.Empty;
 
+		[SerializeField] AudioClip audioBGS;
+
 		// ### Reference that should be on the scene of the CoinsManager
 		CoinsManager coinsManager = null;
 
+		// ### Reference for the audio store, to start play the BHM music
+		AudioStore audioStore;
+
 		/// <summary>
-		/// Initializes the coinsManager and coin ID
+		/// Initializes the coinsManager and coin ID and the reference for the audio store component
 		/// </summary>
 		private void Start()
 		{
@@ -33,6 +39,8 @@ namespace Content.Coins
 			{
 				coinID = Guid.NewGuid().ToString();
 			}
+
+			audioStore = FindObjectOfType<AudioStore>();
 		}
 
 		/// <summary>
@@ -48,7 +56,9 @@ namespace Content.Coins
 
 			pointsStore.AddPoints(pointsAward);
 
-			if(coinsManager == null)
+			audioStore.Play(audioBGS);
+
+			if (coinsManager == null)
 				coinsManager= FindObjectOfType<CoinsManager>();
 
 			coinsManager.DestroyCoin(this);

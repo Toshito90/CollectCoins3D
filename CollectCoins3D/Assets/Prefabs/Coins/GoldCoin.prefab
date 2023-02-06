@@ -62,6 +62,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointsAward: 100
   coinID: 
+  audioBGS: {fileID: 8300000, guid: 78cc1b1d88ce0894dbdbb36b7b0304a6, type: 3}
 --- !u!114 &3988045218184802210
 MonoBehaviour:
   m_ObjectHideFlags: 0

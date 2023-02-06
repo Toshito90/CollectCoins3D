@@ -132,7 +132,6 @@ namespace CoreSystems.Player.Movement
 			// When to Jump
 			if(Input.GetKey(jumpKey) && readyToJump && isOnGround)
 			{
-				Debug.Log("Input.GetKey(jumpKey)");
 				readyToJump = false;
 				Jump();
 				Invoke(nameof(ResetJump), jumpCooldown);

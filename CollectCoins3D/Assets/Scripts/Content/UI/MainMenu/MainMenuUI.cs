@@ -1,3 +1,4 @@
+using CoreSystems.Audio;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,15 @@ namespace Content.UI.MainMenu
 		// ### Button to exit the game in the main menu
 		[SerializeField] Button exitGameButton;
 
+		// ### Reference of the audio store component so it can play sounds
+		[SerializeField] AudioStore audioStore;
+
+		// ### BGM (BackGround Music) to play the main menu music
+		[SerializeField] AudioClip bgmClip;
+
+		// ### BGS (BackGround Sound) to play the sound when selecting an option
+		[SerializeField] AudioClip bgsClip;
+
 		/// <summary>
 		/// Configures the buttons from the main menu to their correspondent behaviours
 		/// Start Game Button -> To load the scene where is the main game
@@ -30,6 +40,7 @@ namespace Content.UI.MainMenu
 			// ### Start Game Button
 			startGameButton.onClick.AddListener(() =>
 			{
+				audioStore.Play(bgsClip);
 				SceneManager.LoadScene(gameSceneName, LoadSceneMode.Single);
 			});
 
@@ -43,6 +54,14 @@ namespace Content.UI.MainMenu
 				UnityEditor.EditorApplication.isPlaying = false;
 #endif
 			});
+		}
+
+		/// <summary>
+		/// Starts to play the music for the main menu
+		/// </summary>
+		private void Start()
+		{
+			audioStore.Play(bgmClip);
 		}
 	}
 }
