@@ -127,8 +127,8 @@ namespace CoreSystems.Player.Movement
 		void MyInput()
 		{
 			horizontalInput = Input.GetAxisRaw("Horizontal");
-			verticalInput = Input.GetAxisRaw("Vertical");
-
+			verticalInput = Input.GetAxisRaw("Vertical");	
+				
 			// When to Jump
 			if(Input.GetKey(jumpKey) && readyToJump && isOnGround)
 			{

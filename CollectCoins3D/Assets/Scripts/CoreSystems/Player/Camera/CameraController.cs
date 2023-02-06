@@ -23,13 +23,31 @@ namespace CoreSystems.Player.Camera
 		float xRotation;
 		float yRotation;
 
+		// ### Holds the mouse input axis
+		float mouseXInput;
+		float mouseYInput;
+
 		/// <summary>
 		/// Handles the camera's rotation by input and it's orientation
 		/// </summary>
 		private void Update()
 		{
-			float mouseXInput = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensivityX;
-			float mouseYInput = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensivityY;
+			if (Input.GetMouseButton(1))
+			{
+				Cursor.lockState = CursorLockMode.Locked;
+				Cursor.visible = false;
+
+				mouseXInput = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensivityX;
+				mouseYInput = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensivityY;
+			}
+			else if (Input.GetMouseButtonUp(1))
+			{
+				Cursor.lockState = CursorLockMode.None;
+				Cursor.visible = true;
+
+				mouseXInput = 0;
+				mouseYInput = 0;
+			}
 
 			yRotation += mouseXInput;
 			xRotation -= mouseYInput;
